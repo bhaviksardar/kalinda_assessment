@@ -3,13 +3,14 @@
 Table -> Has all the information that was retireved through the Voice Agent call
 
 Voice Agent -> Where user can call a restaurant of their choosing and a VAPI Voice Agent will commence its data retrieval
--> (Also added a map feature where the user can see local restaurants but did not have time to fully implement it)
+(Also added a map feature where the user can see local restaurants but did not have time to fully implement it)*
 
 Statistics -> Where the user can see a basic statisical overview of their calls
 
 Used VAPI Voice Agent and Mapbox APIs
 
 VAPI Voice Agent Workflow
+
 The agent is collects certain key information (Wait Time, Open Reservation Slots, Dietary Accomodation) -> Call is intiated -> adds pre-determined key information to Google Sheet
 -> After call is ended, the application later appends the timestamp and trancript of the call to the sheet
 
