@@ -16,6 +16,7 @@ export default function PhoneCall() {
     }
 
     try {
+      console.log("CALLING")
       const response = await axios.post("http://localhost:5001/api/call", {
         phoneNumber: phoneNumber,
       });
@@ -25,8 +26,11 @@ export default function PhoneCall() {
       console.log("Call response:", data);
 
       if (data.success) {
+        console.log(data)
+        setTimeout(2000)
         setCallResult(data);
         setCallId(data.callId);
+        fetchCallData(callId);
         alert(`Call completed!`);
       }
 
@@ -34,12 +38,11 @@ export default function PhoneCall() {
     } catch (error) {
       console.log("Error making call:", error);
       console.error(error);
-      alert("Failed to make call");
     }
   };
 
   const handleTestCall = async () => {
-    setCallId("019c5e5a-0b99-7cc5-945e-d22acf2d04e0");
+    setCallId("019caa82-1b14-7bb2-ab94-4878a8147a2f");
   };
 
   async function fetchCallData(callId) {
@@ -80,9 +83,9 @@ export default function PhoneCall() {
     }
   }
 
-  useEffect(() => {
-    fetchCallData(callId);
-  }, [callId]);
+  // useEffect(() => {
+  //   fetchCallData(callId);
+  // }, [callId]);
 
   return (
     <div className="flex flex-col w-full h-full gap-4">
