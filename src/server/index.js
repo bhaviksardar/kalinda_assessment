@@ -31,7 +31,7 @@ app.get("/api/data", async (req, res) => {
       range: `${SHEET_NAME}!A2:G`,
     });
 
-    console.log("Data fetched from Sheets:", response.data.values, response.data);
+    //console.log("Data fetched from Sheets:", response.data.values, response.data);
     const allRows = response.data.values || [];
 
     const filteredRows = allRows.filter((row) => row[4] && row[4].trim() !== "");
@@ -51,7 +51,7 @@ app.get("/api/data/:callId", async (req, res) => {
 
   try {
     const callRes = await fetch(
-      `https://api.vapi.ai/call/${callId}`,
+      `https://api.vapi.ai/v1/calls/${callId}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.VAPI_API_KEY}`,
@@ -112,31 +112,8 @@ app.post("/api/call", async (req, res) => {
 
     const callId = response.data.id;
     let status = response.data.status;
-
-    while (!["completed", "failed", "no-answer", "canceled"].includes(status)) {
-
-      await new Promise((resolve) => setTimeout(resolve, 3000));
-
-      const statusRes = await axios.get(
-        `https://api.vapi.ai/v1/calls/${callId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${process.env.VAPI_API_KEY}`,
-          },
-        }
-      );
-
-      status = statusRes.data.status;
-      console.log("Call status:", status);
-    }
-
-    if (status !== "completed") {
-      return res.status(400).json({
-        success: false,
-        status,
-        message: "Call did not complete successfully",
-      });
-    }
+    
+    console.log(status)
 
     return res.json({
       success: true,
